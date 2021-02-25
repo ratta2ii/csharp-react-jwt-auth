@@ -10,13 +10,13 @@ namespace API.Controllers
 {
   public class ActivitiesController : BaseApiController
   {
-
     private readonly DataContext _context;
     public ActivitiesController(DataContext context)
     {
       _context = context;
     }
 
+    // url/api/activities
     [HttpGet]
     public async Task<ActionResult<List<Activity>>> GetActivities()
     {
