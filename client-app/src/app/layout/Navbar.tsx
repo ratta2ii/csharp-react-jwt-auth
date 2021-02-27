@@ -2,10 +2,10 @@ import React from 'react'
 import { Button, Container, Menu } from 'semantic-ui-react'
 
 interface Props {
-  openForm: () => void;
+    openForm: () => void;
 }
 
-export const Navbar = ({openForm}: Props) => {
+const NavBar = ({openForm}: Props) => {
     return (
         <Menu inverted fixed='top'>
             <Container>
@@ -21,3 +21,5 @@ export const Navbar = ({openForm}: Props) => {
         </Menu>
     )
 }
+
+export default NavBar;
