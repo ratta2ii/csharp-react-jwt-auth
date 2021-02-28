@@ -1,38 +1,34 @@
 import React from "react";
+import { useStore } from "../../../app/stores/store";
 import { Button, Card, Image } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
-interface Props {
-    activity: Activity;
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
-}
+const ActivityDetails = () => {
+    const { activityStore } = useStore();
+    const { selectedActivity, openForm, cancelSelectedActivity } = activityStore;
 
-const ActivityDetails = ({
-    activity,
-    cancelSelectActivity,
-    openForm,
-}: Props) => {
+    if (!selectedActivity) return <LoadingComponent content="loading" />;
+
     return (
         <Card fluid>
-            <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
+            <Image src={`/assets/categoryImages/${selectedActivity.category}.jpg`} />
             <Card.Content>
-                <Card.Header>{activity.title}</Card.Header>
+                <Card.Header>{selectedActivity.title}</Card.Header>
                 <Card.Meta>
-                    <span>{activity.date}</span>
+                    <span>{selectedActivity.date}</span>
                 </Card.Meta>
-                <Card.Description>{activity.description}</Card.Description>
+                <Card.Description>{selectedActivity.description}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths="2">
                     <Button
-                        onClick={() => openForm(activity.id)}
+                        onClick={() => openForm(selectedActivity.id)}
                         basic
                         color="blue"
                         content="Edit"
                     />
                     <Button
-                        onClick={cancelSelectActivity}
+                        onClick={cancelSelectedActivity}
                         basic
                         color="grey"
                         content="Cancel"

@@ -1,24 +1,17 @@
 import React, { SyntheticEvent, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
 
-interface Props {
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submitting: boolean;
-}
-
-const ActivityList = ({
-    activities,
-    selectActivity,
-    deleteActivity,
-    submitting,
-}: Props) => {
-    
+const ActivityList = () => {
+    const { activityStore } = useStore();
+    const { activitiesByDate, loading, selectActivity, deleteActivity } = activityStore;
     const [target, setTarget] = useState("");
 
-    const handleActivityDelete = (event: SyntheticEvent<HTMLButtonElement>, id: string) => {
+    const handleActivityDelete = (
+        event: SyntheticEvent<HTMLButtonElement>,
+        id: string
+    ) => {
         setTarget(event.currentTarget.name);
         deleteActivity(id);
     };
@@ -26,7 +19,7 @@ const ActivityList = ({
     return (
         <Segment>
             <Item.Group divided>
-                {activities.map((activity) => (
+                {activitiesByDate.map((activity) => (
                     <Item key={activity.id}>
                         <Item.Content>
                             <Item.Header as="a">{activity.title}</Item.Header>
@@ -51,7 +44,7 @@ const ActivityList = ({
                                     content="Delete"
                                     color="red"
                                     // this will make sure only this button is "loading"
-                                    loading={submitting && target === activity.id}
+                                    loading={loading && target === activity.id}
                                 />
                                 <Label basic content={activity.category} />
                             </Item.Extra>
@@ -63,4 +56,5 @@ const ActivityList = ({
     );
 };
 
-export default ActivityList;
+//! DO NOT FORGET TO MAKE SURE THE COMPONENT IS OBSERVING THE OBSERVABLES
+export default observer(ActivityList);
