@@ -1,19 +1,23 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { Button, Form, Segment } from "semantic-ui-react";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { v4 as uuid } from "uuid";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 const ActivityForm = () => {
+    const history = useHistory();
     const { activityStore } = useStore();
     const {
-        selectedActivity,
         loading,
-        closeForm,
+        loadingInitial,
+        loadActivity,
         createActivity,
         updateActivity,
     } = activityStore;
-
-    const initialState = selectedActivity ?? {
+    const { id } = useParams<{ id: string }>();
+    const [activity, setActivity] = useState({
         id: "",
         title: "",
         category: "",
@@ -21,19 +25,36 @@ const ActivityForm = () => {
         date: "",
         city: "",
         venue: "",
-    };
+    });
 
-    const [activity, setActivity] = useState(initialState);
+    useEffect(() => {
+        if (id) loadActivity(id).then((activity) => setActivity(activity!));
+    }, [id, loadActivity]);
 
     const handleSubmit = () => {
-        (activity.id) ? updateActivity(activity)
-        : createActivity(activity);
-    }
+        if (activity.id.length === 0) {
+            let newActivity = {
+                ...activity,
+                id: uuid(),
+            };
+            createActivity(newActivity).then(() =>
+                history.push(`/activities/${newActivity.id}`)
+            );
+        } else {
+            updateActivity(activity).then(() =>
+                history.push(`/activities/${activity.id}`)
+            );
+        }
+    };
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         const { name, value } = event.target;
         setActivity({ ...activity, [name]: value });
-    }
+    };
+
+    if (loadingInitial) return <LoadingComponent content="Loading activity..." />;
 
     return (
         <Segment clearing>
@@ -83,7 +104,8 @@ const ActivityForm = () => {
                     content="Submit"
                 />
                 <Button
-                    onClick={closeForm}
+                    as={Link}
+                    to="/activities"
                     floated="right"
                     type="button"
                     content="Cancel"
