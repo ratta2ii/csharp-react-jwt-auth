@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { Grid } from "semantic-ui-react";
 import ActivityList from "./ActivityList";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
+import ActivityFilters from "./ActivityFilters";
 
 const ActivityDashboard = () => {
     const { activityStore } = useStore();
@@ -12,6 +13,7 @@ const ActivityDashboard = () => {
     useEffect(() => {
         if (activityRegistry.size <= 1) loadActivities();
     }, [activityRegistry.size, loadActivities]);
+
 
     //* Loading Indicator
     if (activityStore.loadingInitial)
@@ -23,7 +25,7 @@ const ActivityDashboard = () => {
                 <ActivityList />
             </Grid.Column>
             <Grid.Column width="6">
-                <h2>Activities filters</h2>
+                <ActivityFilters />
             </Grid.Column>
         </Grid>
     );

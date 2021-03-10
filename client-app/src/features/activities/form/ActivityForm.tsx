@@ -6,7 +6,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
-const ActivityForm = () => {
+const ActivityForm = (props: any) => {
     const history = useHistory();
     const { activityStore } = useStore();
     const {
@@ -17,6 +17,13 @@ const ActivityForm = () => {
         updateActivity,
     } = activityStore;
     const { id } = useParams<{ id: string }>();
+
+    // These are equal (IMPORTANT: need to pass in props for ID#2 to work)
+    // If this comes from an edit button, it will pass in the id and upate fields through useEffect
+    // working in conjuntion with the local hook "setActivity"
+    // console.log("ID: ", id);
+    // console.log("ID#2: ", props.match.params.id);
+
     const [activity, setActivity] = useState({
         id: "",
         title: "",

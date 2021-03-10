@@ -5,6 +5,7 @@ import { Activity } from "../models/activity";
 export default class ActivityStore {
     // activities: Activity[] = [];
     // Instead of (above) we are using Map instead -"activityRegistry"
+    // <activityId, activity>
     activityRegistry = new Map<string, Activity>();
     selectedActivity: Activity | undefined = undefined;
     editMode = false;
@@ -20,6 +21,16 @@ export default class ActivityStore {
     get activitiesByDate() {
         return Array.from(this.activityRegistry.values()).sort((a, b) => 
             Date.parse(a.date) - Date.parse(b.date));
+    }
+
+    get groupedActivities() {
+        return Object.entries(
+            this.activitiesByDate.reduce((activities, activity) => {
+                const date = activity.date;
+                activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+                return activities;
+            }, {} as {[key: string]: Activity[]})
+        )
     }
 
     loadActivities = async () => {
@@ -75,26 +86,6 @@ export default class ActivityStore {
         this.loading = state;
     }
 
-    // selectActivity = (id: string) => {
-    //     // this.selectedActivity = this.activities.find(a => a.id === id);
-    //     // Instead of (above) we are using Map instead -"activityRegistry"
-    //     this.selectedActivity = this.activityRegistry.get(id);
-    //     this.editMode = false;
-    // }
-
-    // cancelSelectedActivity = () => {
-    //     this.selectedActivity = undefined;
-    // }
-
-    // openForm = (id?: string) => {
-    //     id ? this.selectActivity(id) : this.cancelSelectedActivity();
-    //     this.editMode = true;
-    // }
-
-    // closeForm = () => {
-    //     this.editMode = false;
-    // }
-
     createActivity = async (activity: Activity) => {
         this.setLoading(true);
         try {
@@ -118,9 +109,6 @@ export default class ActivityStore {
         try {
             await agent.Activities.update(activity);
             runInAction(() => {
-                // this.activities =
-                //     [...this.activities.filter(a => a.id !== activity.id), activity];
-                // Instead of (above) we are using Map instead -"activityRegistry"
                 this.activityRegistry.set(activity.id, activity);
                 this.selectedActivity = activity;
                 this.editMode = false;
@@ -139,8 +127,6 @@ export default class ActivityStore {
         try {
             await agent.Activities.delete(id);
             runInAction(() => {
-                // this.activities = [...this.activities.filter(a => a.id !== id)];
-                // Instead of (above) we are using Map instead -"activityRegistry"
                 this.activityRegistry.delete(id);
                 this.setLoading(false);
             })
