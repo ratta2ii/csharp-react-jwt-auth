@@ -1,0 +1,2 @@
+Data Transfer Object (DTO): An object that carries data between processes. 
+Example: Logging in: User sends data, api sends data back.
