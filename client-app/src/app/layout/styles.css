@@ -19,7 +19,6 @@ body {
 }
 
 /*home page styles*/
-
 .masthead {
   display: flex;
   align-items: center;
@@ -46,5 +45,9 @@ body {
   font-size: 1.7em;
   font-weight: normal;
 }
-
 /*end home page styles*/
+
+/* This is to for the calender input */
+.react-datepicker-wrapper {
+    width: 100%;
+}

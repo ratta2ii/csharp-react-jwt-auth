@@ -3,5 +3,15 @@
     "cSpell.words": [
         "notaguid",
         "unauthorised"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "terminalCursor.foreground": "#00ffaa"
+    },
+    "terminal.integrated.cursorBlinking": true,
+    "vscode_custom_css.imports": [
+        "file:///Users/trevormackin/Documents/vs-code-custom.css"
+    ],
+    "vscode_custom_css.policy": true,
+    "terminal.integrated.confirmOnExit": true,
+    "terminal.external.osxExec": "YourFaveTerminal.app",
 }
