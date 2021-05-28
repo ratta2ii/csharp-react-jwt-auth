@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -10,50 +11,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-
-    // "AllowAnonymous" allows a user to access account methods without being authenticated -yet.
-    // I.E. A user cannot be authenticted -yet- when engaging Auth protocols in AccountController
+    // "AllowAnonymous" allows a user to access account methods w/o being authenticated -yet.
+    // I.E. A user cannot be authenticted, while in the process of being authenticated. :-)
     [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     // Although there is a "BaseApiController" we are extending directly from the ConrollerBase
+    // for matters pertaining to the account (Auth Services)
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService)
+        public AccountController(UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager, TokenService tokenService)
         {
-            this._signInManager = signInManager;
-            this._userManager = userManager;
-            this._tokenService = tokenService;
+            _tokenService = tokenService;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
-        // Clean DRY code principles (reusable for this component)
         private UserDto CreateUserObject(AppUser user)
         {
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                UserName = user.UserName,
                 Image = null,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                UserName = user.UserName
             };
-        }
-
-        //! ("/api/account/login")
-        [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
-        {
-
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
-
-            if (result.Succeeded)
-            {
-                return CreateUserObject(user);
-            }
-            return Unauthorized();
         }
 
         //! ("/api/account/register")
@@ -62,11 +48,13 @@ namespace API.Controllers
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                return BadRequest("This email has been taken!");
+                ModelState.AddModelError("email", "Email taken");
+                return ValidationProblem();
             }
             if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.UserName))
             {
-                return BadRequest("This username has been taken!");
+                ModelState.AddModelError("username", "Username taken");
+                return ValidationProblem();
             }
 
             var user = new AppUser
@@ -80,9 +68,28 @@ namespace API.Controllers
 
             if (result.Succeeded)
             {
-               return CreateUserObject(user);
+                return CreateUserObject(user);
             }
-            return BadRequest("There was a problem registering user!");
+
+            return BadRequest("Problem registering user");
+        }
+
+        //! ("/api/account/login")
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        {
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+
+            if (user == null) return Unauthorized();
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (result.Succeeded)
+            {
+                return CreateUserObject(user);
+            }
+
+            return Unauthorized();
         }
 
         //! ("/api/account")
@@ -91,6 +98,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+
             return CreateUserObject(user);
         }
     }

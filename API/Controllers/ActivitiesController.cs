@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Application.Activities;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {

@@ -28,7 +28,7 @@ namespace API
             services.AddControllers(opt =>
             {
                 // Create Authorization Policy
-                // Ensures every endpoint in the API requires authentication
+                // Ensures all endpoints on API require authentication (except: [AllowAnonymous])
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy)); 
             })
