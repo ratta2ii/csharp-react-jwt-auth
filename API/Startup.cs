@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FluentValidation.AspNetCore;
 using API.Extensions;
-using Application.Activities;
-using API.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -31,11 +28,8 @@ namespace API
                 // Ensures all endpoints on API require authentication (except: [AllowAnonymous])
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy)); 
-            })
-                .AddFluentValidation(config =>
-            {
-                config.RegisterValidatorsFromAssemblyContaining<Create>();
             });
+
             // This simply imports the class "ApplicationServicesExtensions" class to keep code clean. You could also hard code the same code from this class here as well
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
@@ -44,7 +38,8 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            // TODO: THIS DOES NOT WORK HERE (I removed Ex Middleware, so need to add an exception handler)
+            // app.UseExceptionHandler();
 
             if (env.IsDevelopment())
             {

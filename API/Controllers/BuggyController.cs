@@ -1,9 +1,14 @@
 using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class BuggyController : BaseApiController
+    [AllowAnonymous]
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BuggyController : ControllerBase
     {
         [HttpGet("not-found")]
         public ActionResult GetNotFound()
@@ -20,7 +25,8 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult GetServerError()
         {
-            throw new Exception("This is a server error");
+            // throw new Exception("This is a server error");
+            return  StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("unauthorised")]

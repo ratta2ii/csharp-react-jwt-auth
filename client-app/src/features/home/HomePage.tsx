@@ -1,46 +1,47 @@
 import { observer } from "mobx-react-lite";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Header, Segment, Image, Button } from "semantic-ui-react";
+import { Container, Header, Segment, Button } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-import LoginForm from "../users/LoginForm";
-import RegisterForm from "../users/RegisterForm";
 
 const HomePage = () => {
-  const { userStore, modalStore } = useStore();
-  const { isLoggedIn } = userStore;
-  const { openModal } = modalStore;
+  const {
+    userStore: { user },
+  } = useStore();
+
+  useEffect(() => {}, [user]);
+
+  let backgroundImage;
+  !user
+    ? (backgroundImage = "blue-folder-lock.jpeg")
+    : (backgroundImage = "blue-folder-unlock.jpeg");
 
   return (
-    <Segment inverted textAlign="center" vertical className="masthead">
-      <Container text>
-        <Header as="h1" inverted>
-          <Image
-            size="massive"
-            src="/assets/logo.png"
-            alt="logo"
-            style={{ marginBottom: 12 }}
-          />
-          Reactivities
+    <Segment
+      inverted
+      textAlign="center"
+      vertical
+      className="masthead"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url("/assets/${backgroundImage}")`,
+        backgroundSize: "cover",
+      }}
+    >
+      <Container text style={{ marginBottom: 60 }}>
+        <Header as="h1" inverted style={{ marginBottom: 25 }}>
+          {!user ? "ASP.NET w/ React Auth" : `Welcome ${user.userName}!`}
         </Header>
-        {isLoggedIn ? (
-          <Fragment>
-            <Header as="h2" inverted content="Welcome to Reactivities" />
-            <Button as={Link} to="/activities" size="huge" inverted>
-              Go To Activities
+        <Fragment>
+          {!user ? (
+            <Button as={Link} to="/about" size="huge" inverted>
+              Show me the Magic!
             </Button>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Header as="h2" inverted content="Welcome to Reactivities" />
-            <Button onClick={() => openModal(<LoginForm />)} size="huge" inverted>
-              Login!
+          ) : (
+            <Button as={Link} to="/dashboard" size="huge" inverted>
+              Go To Dashboard!
             </Button>
-            <Button onClick={() => openModal(<RegisterForm />)} size="huge" inverted>
-              Register!
-            </Button>
-          </Fragment>
-        )}
+          )}
+        </Fragment>
       </Container>
     </Segment>
   );

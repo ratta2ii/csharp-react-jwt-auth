@@ -11,8 +11,8 @@ const NotFound = ()  => {
                     We could not find this.
                 </Icon>
             </Header>
-            <Segment.Inline as={Link} to="/activities" primary>
-                Return to activities page
+            <Segment.Inline as={Link} to="/errors" primary>
+                Return to Error Testing
             </Segment.Inline>
         </Segment>
     )

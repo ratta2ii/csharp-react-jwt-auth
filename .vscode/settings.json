@@ -2,7 +2,9 @@
     "editor.tabSize": 4,
     "cSpell.words": [
         "DTOs",
+        "Serilog",
         "notaguid",
+        "testauth",
         "unauthorised"
     ],
     "workbench.colorCustomizations": {

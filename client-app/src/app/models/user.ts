@@ -11,3 +11,7 @@ export interface UserFormValues {
     displayName?: string;
     userName?: string;
 }
+
+export interface GoogleCode {
+    code: string;
+}

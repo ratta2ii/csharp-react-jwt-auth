@@ -1,23 +1,22 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Container, Header, Segment } from 'semantic-ui-react';
-import { useStore } from '../../app/stores/store';
+import { observer } from 'mobx-react-lite';
+import { Header, Segment, Icon } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 
 const ServerError = () => {
-    const { commonStore } = useStore();
 
     return (
-        <Container>
-            <Header as='h1' content='Server Error'  />
-            <Header sub as='h5' color='red' content={commonStore.error?.message} />
-            {commonStore.error?.details &&
-                <Segment>
-                    <Header as='h4' content='Stack trace' color='teal' />
-                    <code style={{marginTop: 10}}>{commonStore.error.details}</code>
-                </Segment>
-            }
-        </Container>
-    );
+        <Segment placeholder>
+            <Header icon>
+                <Icon name="server" style={{marginRight: 30}}>
+                    Server Error
+                </Icon>
+            </Header>
+            <Segment.Inline as={Link} to="/errors" primary>
+                Return to Error Testing
+            </Segment.Inline>
+        </Segment>
+    )
 }
 
 export default observer(ServerError);
