@@ -5,9 +5,13 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Link, NavLink } from "react-router-dom";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
+import LoginForm from "../../features/users/LoginForm";
 
 const NavBar = () => {
-  const { userStore: { user, logout } } = useStore();
+  const { 
+      userStore: { user, logout },
+      modalStore: { openModal } 
+  } = useStore();
 
   useEffect(() => {
   }, [user]);
@@ -16,19 +20,21 @@ const NavBar = () => {
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item as={NavLink} to="/" exact header>
+          Home
+        </Menu.Item>
+        <Menu.Item as={NavLink} to={`/dashboard/user/${user?.userName}`} name="Dashboard" >
         {!user
            ? <LockIcon style={{ marginRight: 10, fontSize: 28, color: "#f0acac" }} />
            : <LockOpenIcon style={{ marginRight: 10, fontSize: 28, color: "#a7dd68" }} />
         }
-          Home
+            Dashboard
         </Menu.Item>
         <Menu.Item as={NavLink} to="/about" name="About" />
-        <Menu.Item as={NavLink} to="/dashboard" name="Dashboard" />
         {!user &&
             <Menu.Item>
-            <Button as={Link} to="/login" color="green" style={{fontWeight: 300}} >
-                LOGIN
-            </Button>
+                <Button onClick={() => openModal(<LoginForm />)} color="green" style={{fontWeight: 300}} >
+                    LOGIN
+                </Button>
             </Menu.Item>
         }
         {user &&
@@ -43,7 +49,7 @@ const NavBar = () => {
                 <Dropdown.Item
                     // TODO: Add Profile and remove disabled attribute
                     as={Link}
-                    to={`/profile/${user?.userName}`}
+                    to={`/dashboard/user/${user?.userName}`}
                     text="My Profile"
                     />
                 <Dropdown.Item onClick={logout} text="Logout" icon="power" />

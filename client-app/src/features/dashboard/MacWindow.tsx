@@ -3,10 +3,15 @@ import DashboardContent from "./DashboardContent";
 import "./MacWindowStyles.css";
 
 const YosemiteWindow = () => {
+
+  const handleUserWarningMessage = () => {
+    alert("IMPORTANT: This window is for design purposes only. It does not work as a functioning window.\n\nThank you!");
+  }
+
   return (
     <div className="window">
       <div className="titlebar">
-        <div className="buttons">
+        <div className="buttons" onClick={handleUserWarningMessage}>
           <div className="close">
             <a className="closebutton" href="#">
               <span>
@@ -32,7 +37,7 @@ const YosemiteWindow = () => {
             {/* <!-- zoom button link --> */}
           </div>
         </div>
-        ASP.Net Core w/ React Auth | User Profile
+            Current User Profile
         {/* <!-- window title --> */}
       </div>
       <div className="content">

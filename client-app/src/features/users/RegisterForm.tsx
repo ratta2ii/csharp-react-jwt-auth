@@ -28,7 +28,7 @@ const RegisterForm = () => {
     >
       {({ handleSubmit, isSubmitting, errors, isValid, dirty }) => (
         <Form className="ui form error" onSubmit={handleSubmit} autoComplete="off">
-          <Header as="h2" content="Sign up to Reactivities" color="teal" textAlign="center" />
+          <Header as="h3" content="Register New Account!" color="teal" textAlign="center" />
           <MyTextInput name="displayName" placeholder="Display Name" />
           <MyTextInput name="userName" placeholder="Username" />
           <MyTextInput name="email" placeholder="Email" />

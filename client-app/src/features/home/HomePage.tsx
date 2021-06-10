@@ -1,5 +1,5 @@
-import { observer } from "mobx-react-lite";
 import React, { Fragment, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { Container, Header, Segment, Button } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
@@ -29,7 +29,7 @@ const HomePage = () => {
     >
       <Container text style={{ marginBottom: 60 }}>
         <Header as="h1" inverted style={{ marginBottom: 25 }}>
-          {!user ? "ASP.NET w/ React Auth" : `Welcome ${user.userName}!`}
+          {!user ? "C#-React-JWT-Auth" : `Welcome ${user.userName}!`}
         </Header>
         <Fragment>
           {!user ? (
@@ -37,7 +37,7 @@ const HomePage = () => {
               Show me the Magic!
             </Button>
           ) : (
-            <Button as={Link} to="/dashboard" size="huge" inverted>
+            <Button as={Link} to={`/dashboard/user/${user?.userName}`} size="huge" inverted>
               Go To Dashboard!
             </Button>
           )}

@@ -31,7 +31,8 @@ export default class UserStore {
             const user = await agent.Account.register(cred);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
-            history.push("/login");
+            history.push("/");
+            // history.push(`/dashboard/user/${user.userName}`);
             store.modalStore.closeModal();
         }
         catch (error) {
@@ -46,7 +47,8 @@ export default class UserStore {
             const user = await agent.Account.login(cred);
             store.commonStore.setToken(user.token);
             runInAction(() => this.user = user);
-            history.push("/dashboard");
+            history.push("/");
+            // history.push(`/dashboard/user/${user.userName}`);
             store.modalStore.closeModal();
         }
         catch (error) {
@@ -65,7 +67,7 @@ export default class UserStore {
         store.commonStore.setToken(null);
         window.localStorage.removeItem("jwt");
         runInAction(() => this.user = null);
-        history.push("/dashboard");
+        history.push("/about");
     }
 }
 
