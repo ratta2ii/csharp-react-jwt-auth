@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import { Button, Container } from "semantic-ui-react";
 import agent from "../../app/api/agent";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 const About = (props: any) => {
   const handleTestAuthEndpoint = () => {

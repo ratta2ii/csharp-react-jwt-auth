@@ -3,9 +3,13 @@
     "cSpell.words": [
         "DTOs",
         "Serilog",
+        "closebutton",
+        "minimizebutton",
         "notaguid",
         "testauth",
-        "unauthorised"
+        "titlebar",
+        "unauthorised",
+        "zoombutton"
     ],
     "workbench.colorCustomizations": {
         "terminalCursor.foreground": "#00ffaa"

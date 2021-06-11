@@ -4,7 +4,6 @@ import { Container } from "semantic-ui-react";
 import MacWindow from "./MacWindow";
 
 const Dashboard = (props: any) => {
-
   return (
     <Container
       style={{
@@ -14,7 +13,7 @@ const Dashboard = (props: any) => {
         marginTop: 130,
       }}
     >
-    <MacWindow />
+      <MacWindow />
     </Container>
   );
 };
