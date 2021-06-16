@@ -38,13 +38,37 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // TODO: THIS DOES NOT WORK HERE (I removed Ex Middleware, so need to add an exception handler)
-            // app.UseExceptionHandler();
+            
+            /*
+            !IMPORTANT
+            TODO: THIS DOES NOT WORK HERE (I removed Ex Middleware, so need to add an exception handler)
+            app.UseExceptionHandler();
+            */
+
+            /*
+            !IMPORTANT
+            ? https://securityheaders.com (Test website security rating)
+            ? NWebsec.AspNetCore.Middleware security package
+            TODO: Uncomment code after hosting
+            */
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            app.UseCspReportOnly(opt => opt
+                .BlockAllMixedContent()
+                .StyleSources(s => s.Self())
+                .FontSources(s => s.Self())
+                .FormActions(s => s.Self())
+                .FrameAncestors(s => s.Self())
+                .ImageSources(s => s.Self())
+                .ScriptSources(s => s.Self())
+            );
 
             if (env.IsDevelopment())
             {
                 // Using custom middleware above to handle exceptions rather than this
-                // app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
@@ -52,6 +76,12 @@ namespace API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Looks in "wwwroot" for any "index.html"
+            // Remember that scripts in the client must run a postbuild operation to move build
+            // files/folder to "wwwroot" 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             //! Cors goes directly after the UseRouting (Name the policy (above) as a parameter)
             app.UseCors("CorsPolicy");
@@ -63,6 +93,9 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // App only knows about routes in API, so to serve client routes (from build files)
+                // it is necessary to create a "Fallback" Controller to handle these routes
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
