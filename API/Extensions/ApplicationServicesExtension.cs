@@ -16,7 +16,10 @@ namespace API.Extensions
       });
       services.AddDbContext<DataContext>(opt =>
       {
-        opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+        // opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+        // Inside "appsettings.development.json" ConnectionStrings property
+        // "DefaultConnection": "Data source=oauth.db" (for sqlite)
+        opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
       });
       services.AddCors(opt =>
       {

@@ -9,6 +9,7 @@
         "testauth",
         "titlebar",
         "unauthorised",
+        "wwwroot",
         "zoombutton"
     ],
     "workbench.colorCustomizations": {

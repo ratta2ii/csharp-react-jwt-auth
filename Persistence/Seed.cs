@@ -11,13 +11,12 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-
-            // Seeds User in DB
+            // Seeds Users in DB
             if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
                 {
-                    new AppUser{ DisplayName = "Cindy", UserName = "Cindy", Email = "bob@example.com" },
+                    new AppUser{ DisplayName = "Cindy", UserName = "Cindy", Email = "cindi@example.com" },
                     new AppUser{ DisplayName = "Jane", UserName = "Jane", Email = "jane@example.com" },
                     new AppUser{ DisplayName = "Jack", UserName = "Jack", Email = "jack@example.com" },
                 };
@@ -27,7 +26,6 @@ namespace Persistence
                 }
             }
 
-          
             await context.SaveChangesAsync();
         }
     }
