@@ -1,12 +1,10 @@
+## Auth Services with JWT's
 #### GitHub Repo: [csharp-react-jwt-auth](https://github.com/ratta2ii/csharp-react-jwt-auth)
 #### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/)
 
-## Auth Services with JWT's
-##### C#/.NET5.0 | TypeScript/React
-
 ## Security Report "A" Rating
-![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-security-rating.png)
 #### [securityheaders.com](https://securityheaders.com)
+![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-security-rating.png)
 
 ###### Landing Page
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-home.png)
