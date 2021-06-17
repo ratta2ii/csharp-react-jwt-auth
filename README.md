@@ -1,15 +1,12 @@
-#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/)
 #### GitHub Repo: [csharp-react-jwt-auth](https://github.com/ratta2ii/csharp-react-jwt-auth)
-#
+#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/)
 
 ## Auth Services with JWT's
 ##### C#/.NET5.0 | TypeScript/React
-#
 
 ## Security Report "A" Rating
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-security-rating.png)
 #### [securityheaders.com](https://securityheaders.com)
-#
 
 ###### Landing Page
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-home.png)
@@ -23,7 +20,6 @@
 ###### Dashboard/Profile
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-profile.png)
 
-#
 ## Description
 _The purpose of this application is to demonstrate a working knowledge of
 authentication, authorization in the context of Json Web Tokens (JWT's),
@@ -40,7 +36,6 @@ deploy, a full-stack application to production._
 - The back-end API is serving the React build files from a wwwroot
           folder (triggered by a post-build event)
   
-#
 ## Installation (local machine)
     1. git clone https://github.com/ratta2ii/csharp-react-jwt-auth.git
     2. cd csharp-react-jwt-auth
@@ -49,7 +44,6 @@ deploy, a full-stack application to production._
     5. cd API/
     6. dotnet watch run
 
-#
 ## Languages | Frameworks | Technologies
 1. C#/.NET5.0
 2. JavaScript/TypeScript
@@ -64,7 +58,6 @@ deploy, a full-stack application to production._
 11. HTML & CSS
 12. react-toastify
 
-#
 ## Licensing
 
 The MIT License (MIT)
