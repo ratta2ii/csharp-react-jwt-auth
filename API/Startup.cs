@@ -87,13 +87,13 @@ namespace API
             else 
             {
                 //! Below is not working w/ Heroku
-                app.UseHsts();
+                // app.UseHsts();
                 // so adding custom middleware below instead
-                // app.Use(async (context, next) =>
-                // {
-                //     context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
-                //     await next.Invoke();
-                // });
+                app.Use(async (context, next) =>
+                {
+                    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+                    await next.Invoke();
+                });
             }
             app.UseHttpsRedirection();
 
