@@ -20,60 +20,44 @@ const About = (props: any) => {
         marginTop: 130,
       }}
     >
-      <p style={{ fontWeight: 600, fontSize: 25 }}>C#|ASP.Net Core w/ React Auth Services</p>
+      <h1 style={{ fontWeight: 600, fontSize: 30 }}>
+        Auth Services with JWT's
+      </h1>
+      <h2
+        style={{
+          fontWeight: 600,
+          fontSize: 18,
+          marginTop: -10,
+        }}
+      >
+        C#/.NET5.0 | TypeScript/React
+      </h2>
       <p style={{ fontWeight: 600 }}>Description:</p>
       <p>
         The purpose of this application is to demonstrate a working knowledge of
-        authentication, authorization, OAuth 2.0 protocols, and the different
-        security levels for each implementation. The login services for the
-        application includes OAuth services, Salting and Hashing, as well as
-        Cookies and Sessions. More specifically, a Google OAuth strategy offers
-        users a way to be authenticated using the OAuth 2.0 protocols; This
-        strategy is considered the most secure for this application (Security
-        level 6). I have also added a "local" strategy as well, that allows a
-        user to register a new account with a username (email) and password
-        -instead of using the more secure OAuth services. In addition to the Auth services, the application also
-        demonstrates a working knowledge on how to both build, and deploy, a
-        full-stack C#/ASP.Net Core, with React, application.
+        authentication, authorization in the context of Json Web Tokens (JWT's),
+        as well as how to make an application more secure through the
+        implementation of security headers. In addition to the Auth services,
+        the project also demonstrates an understanding on how to both build, and
+        deploy to production, a full-stack application.
       </p>
       <p style={{ fontWeight: 600 }}>Details:</p>
       <ul style={{ lineHeight: "1.5rem" }}>
         <li>
-          C# | ASP.Net Core back-end API, with a React client for the front-end
+          C#/.NET5.0 back-end API, with a TypeScript/React client front-end
         </li>
-        <li>Database hosted on AWS S3 through MongoDB Atlas (DBaaS)</li>
+        <li>Containerized database using docker and Postgres</li>
         <li>
-          Both the Express API and the React client are hosted side-by-side on
-          Heroku (PaaS)
-        </li>
-        <li>
-          The Express application is serving the React build/ folder as a static
-          file
+          The React client is hosted side-by-side to the back-end API on Heroku
+          (PaaS)
         </li>
         <li>
-          All authentication is done server-side using passport.js to
-          authenticate users
-        </li>
-        <li>
-          The Mongoose Schema, and code logic, is configured in a way to allow
-          both sign-in methods (OAuth and Local) to persist while always
-          returning the same user object
+          The back-end API is serving the React build files from a wwwroot
+          folder (triggered by a post-build event)
         </li>
       </ul>
-      <p style={{ fontWeight: 600 }}>Important Note:</p>
-      <p>
-        <span style={{ textDecoration: "underline", fontWeight: "bold" }}>
-          The application is still in the development phase. Please note that
-          proper error handling, as well as the implementation of additional
-          OAuth strategies, will still be added before fully reaching my project
-          goals.
-        </span>{" "}
-        You can, however, still register and log in using the Google OAuth
-        services, as well as the more traditional way of entering a username and
-        password.
-      </p>
       <div style={{ marginTop: 25 }}>
-        <Button onClick={handleTestAuthEndpoint} size="large" >
+        <Button onClick={handleTestAuthEndpoint} size="large">
           Test Authorization Endpoint
         </Button>
       </div>

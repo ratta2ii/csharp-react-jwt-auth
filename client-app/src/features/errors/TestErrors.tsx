@@ -32,7 +32,7 @@ export default function TestErrors() {
     return (
         <>
             <Header as="h1" content="Error Testing:" />
-            <Segment>
+            <Segment style={{height: 70}}>
                 <Button.Group widths="7">
                     <Button onClick={handleNotFound} content="Not Found" basic primary />
                     <Button

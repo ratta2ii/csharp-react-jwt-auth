@@ -24,8 +24,8 @@ const NavBar = () => {
         </Menu.Item>
         <Menu.Item as={NavLink} to={`/dashboard/user/${user?.userName}`} name="Dashboard" >
         {!user
-           ? <LockIcon style={{ marginRight: 10, fontSize: 28, color: "#f0acac" }} />
-           : <LockOpenIcon style={{ marginRight: 10, fontSize: 28, color: "#a7dd68" }} />
+           ? <LockIcon style={{ marginRight: 10, fontSize: 22, color: "#f0acac" }} />
+           : <LockOpenIcon style={{ marginRight: 10, fontSize: 22, color: "#a7dd68" }} />
         }
             Dashboard
         </Menu.Item>

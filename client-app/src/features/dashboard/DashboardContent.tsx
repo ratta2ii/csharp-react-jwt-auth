@@ -21,7 +21,7 @@ const DashboardContent = (props: any) => {
           <li>Display Name: {user?.displayName}</li>
           <li>Token: {user?.token}</li>
       </ul>
-      <div style={{ marginTop: 50 }}>
+      <div style={{ marginTop: 50, marginBottom: 50 }}>
         <Button onClick={handleTestAuthEndpoint} size="large" >
           Test Authorization Endpoint
         </Button>

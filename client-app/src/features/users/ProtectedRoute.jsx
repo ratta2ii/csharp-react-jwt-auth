@@ -12,9 +12,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     modalStore: { openModal },
   } = useStore();
 
-  useEffect(() => {
-    console.log("isLoggedIn: ", isLoggedIn);
-  }, [isLoggedIn]);
+  useEffect(() => {}, [isLoggedIn]);
 
   return (
     <Route

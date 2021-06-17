@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using API.Middleware;
+using API.Extensions;
 
 namespace API
 {
@@ -21,16 +22,14 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
                 
-
             services.AddControllers(opt =>
             {
-                // Create Authorization Policy
-                // Ensures all endpoints on API require authentication (except: [AllowAnonymous])
+                // Authorization Policy Ensures all endpoints on API require auth (except: [AllowAnonymous])
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy)); 
             });
 
-            // This simply imports the class "ApplicationServicesExtensions" class to keep code clean. You could also hard code the same code from this class here as well
+            // This simply imports the class cusstom classes to keep code clean (Instead of hard coding here). 
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
         }
@@ -38,50 +37,62 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-            /*
-            !IMPORTANT
-            TODO: THIS DOES NOT WORK HERE (I removed Ex Middleware, so need to add an exception handler)
-            app.UseExceptionHandler();
-            */
+            // Custom Ex handling middleware
+            app.UseMiddleware<ExceptionMiddleware>();
 
             /*
-            !IMPORTANT
+            TODO: Raise C security rating to A
             ? https://securityheaders.com (Test website security rating)
             ? NWebsec.AspNetCore.Middleware security package
-            TODO: Uncomment code after hosting
             */
             app.UseXContentTypeOptions();
             app.UseReferrerPolicy(opt => opt.NoReferrer());
             app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
             app.UseXfo(opt => opt.Deny());
-            app.UseCspReportOnly(opt => opt
+
+            app.UseCsp(opt => opt
                 .BlockAllMixedContent()
-                .StyleSources(s => s.Self())
-                .FontSources(s => s.Self())
+                .StyleSources(s => s.Self().CustomSources(
+                    "https://fonts.googleapis.com",
+                    "sha256-AbpHGcgLb+kRsJGnwFEktk7uzpZOCcBY74+YBdrKVGs=",
+                    "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+                    "sha256-tekUYy0NkA+O1VOKFNT8dKWreGklo3ejoHu6gC++VBI="
+                ))
+                .FontSources(s => s.Self().CustomSources(
+                    "https://fonts.googleapis.com",
+                    "https://www.robotstxt.org",
+                    "https://fonts.gstatic.com",
+                    "data:"
+                ))
                 .FormActions(s => s.Self())
                 .FrameAncestors(s => s.Self())
                 .ImageSources(s => s.Self())
-                .ScriptSources(s => s.Self())
+                .ScriptSources(s => s.Self().CustomSources(
+                    "sha256-pz50DyrkssNZYZUtYddeJSW8YUsYBWOZNz1x1kHRCRc="
+                ))
             );
+
 
             if (env.IsDevelopment())
             {
                 // Using custom middleware above to handle exceptions rather than this
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
-            // app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            // TODO: #1
+            app.UseHsts(options => options.MaxAge(days: 30).IncludeSubdomains());
+
             // Looks in "wwwroot" for any "index.html"
-            // Remember that scripts in the client must run a postbuild operation to move build
-            // files/folder to "wwwroot" 
+            // Scripts in the client must run a postbuild operation to move build files to wwwroot
             app.UseDefaultFiles();
+
             app.UseStaticFiles();
+            // TODO: #2
+            app.UseXContentTypeOptions();
 
             //! Cors goes directly after the UseRouting (Name the policy (above) as a parameter)
             app.UseCors("CorsPolicy");
