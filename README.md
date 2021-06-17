@@ -25,7 +25,7 @@ authentication, authorization in the context of Json Web Tokens (JWT's),
 as well as how to make an application more secure through the
 implementation of security headers. In addition to the Auth services,
 the project also demonstrates an understanding on how to build a
-full-stack application, as well as how to deploy the app to a production
+full-stack application, and how to deploy it to a production
 environment._
 
 ##  Details

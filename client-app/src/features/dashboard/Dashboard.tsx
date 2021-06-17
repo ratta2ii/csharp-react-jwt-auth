@@ -7,10 +7,14 @@ const Dashboard = (props: any) => {
   return (
     <Container
       style={{
-        fontSize: 14,
-        fontFamily: "monospace",
         maxWidth: "80%",
-        marginTop: 130,
+        height: "94vh",
+        marginTop: "-5vh",
+        display: "flex",
+        alignItems: "center",
+        lineHeight: "1.6rem",
+        fontSize: 16,
+        fontFamily: "monospace",
       }}
     >
       <MacWindow />

@@ -12,7 +12,7 @@ namespace API.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            return Ok("Looks like you are Authorized for this endpoint!");
+            return Ok("You are Authorized for this endpoint!");
         }
     }
 }

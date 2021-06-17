@@ -3,46 +3,33 @@ import DashboardContent from "./DashboardContent";
 import "./MacWindowStyles.css";
 
 const YosemiteWindow = () => {
-
   const handleUserWarningMessage = () => {
-    alert("IMPORTANT: This window is for design purposes only. It does not work as a functioning window.\n\nThank you!");
-  }
+    alert(
+      "IMPORTANT: This window is for design purposes only. It does not work as a functioning window.\n\nThank you!"
+    );
+  };
 
   return (
     <div className="window">
       <div className="titlebar">
+        {/* Mac buttons */}
         <div className="buttons" onClick={handleUserWarningMessage}>
           <div className="close">
-            <a className="closebutton" href="#">
-              <span>
-                <strong>x</strong>
-              </span>
-            </a>
-            {/* <!-- close button link --> */}
+            <button className="closebutton">x</button>
           </div>
           <div className="minimize">
-            <a className="minimizebutton" href="#">
-              <span>
-                <strong>&ndash;</strong>
-              </span>
-            </a>
-            {/* <!-- minimize button link --> */}
+            <button className="minimizebutton">&ndash;</button>
           </div>
           <div className="zoom">
-            <a className="zoombutton" href="#">
-              <span>
-                <strong>+</strong>
-              </span>
-            </a>
-            {/* <!-- zoom button link --> */}
+            <button className="zoombutton">+</button>
           </div>
         </div>
-            Current User Profile
-        {/* <!-- window title --> */}
+        {/* window title */}
+        User Profile (Mock Window)
       </div>
       <div className="content">
+        {/* window content */}
         <DashboardContent />
-        {/* <!-- window content --> */}
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ const NavBar = () => {
                 avatar
                 spaced="right"
                 />
-            <Dropdown pointing="top left" text={user?.displayName}>
+            <Dropdown pointing="top right" text={user?.displayName}>
                 <Dropdown.Menu>
                 <Dropdown.Item
                     // TODO: Add Profile and remove disabled attribute

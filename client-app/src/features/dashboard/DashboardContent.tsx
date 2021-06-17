@@ -12,10 +12,9 @@ const DashboardContent = (props: any) => {
 
   const handleTestAuthEndpoint = () => {
     agent.TestAuth.test().then((res) => {
-      toast.success(`Response: ${res}`, {
+      toast.success(`${res}`, {
         position: "bottom-right",
         autoClose: 5000,
-        hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -26,14 +25,20 @@ const DashboardContent = (props: any) => {
 
   return (
     <Container>
-      <p style={{ fontWeight: 600, fontSize: 16 }}>Current User:</p>
-      <ul style={{ maxWidth: "100%", overflowWrap: "break-word" }}>
+      <h3>Current User:</h3>
+      <ul
+        style={{
+          maxWidth: "100%",
+          overflowWrap: "break-word",
+          lineHeight: "1.8rem",
+        }}
+      >
         <li>Username: {user?.userName}</li>
         <li>Display Name: {user?.displayName}</li>
         <li>Token: {user?.token}</li>
       </ul>
-      <div style={{ marginTop: 50, marginBottom: 50 }}>
-        <Button onClick={handleTestAuthEndpoint} size="large">
+      <div style={{ marginTop: 75, marginBottom: 75, textAlign: "center" }}>
+        <Button onClick={handleTestAuthEndpoint} color="black" size="large">
           Test Authorization Endpoint
         </Button>
       </div>
