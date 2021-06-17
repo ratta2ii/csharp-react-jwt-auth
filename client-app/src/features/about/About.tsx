@@ -65,7 +65,7 @@ const About = (props: any) => {
       <h3>Details:</h3>
       <ul style={{ lineHeight: "1.6rem" }}>
         <li>
-          C#/.NET5.0 back-end API, with a TypeScript/React client front-end
+          C#/.NET5.0 back-end API, with a TypeScript/React front-end client
         </li>
         <li>Containerized database using docker and Postgres</li>
         <li>

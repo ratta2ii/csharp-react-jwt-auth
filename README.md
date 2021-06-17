@@ -29,7 +29,7 @@ full-stack application, and how to deploy it to a production
 environment._
 
 ##  Details
-- C#/.NET5.0 back-end API, with a TypeScript/React client front-end
+- C#/.NET5.0 back-end API, with a TypeScript/React front-end client
 - Containerized database using docker and Postgres
 - The React client is hosted side-by-side to the back-end API on Heroku
 (PaaS)
