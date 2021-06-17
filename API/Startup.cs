@@ -73,6 +73,10 @@ namespace API
             );
 
 
+            // TODO: #2
+            app.UseXContentTypeOptions();
+
+
             if (env.IsDevelopment())
             {
                 // Using custom middleware above to handle exceptions rather than this
@@ -80,19 +84,27 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
+            else 
+            {
+                //! Below is not working w/ Heroku
+                // app.UseHsts();
+                // so adding custom middleware below instead
+                app.Use(async (context, next) =>
+                {
+                    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+                    await next.Invoke();
+                });
+            }
 
             app.UseRouting();
 
-            // TODO: #1
-            app.UseHsts(options => options.MaxAge(days: 30).IncludeSubdomains());
+
 
             // Looks in "wwwroot" for any "index.html"
             // Scripts in the client must run a postbuild operation to move build files to wwwroot
             app.UseDefaultFiles();
-
             app.UseStaticFiles();
-            // TODO: #2
-            app.UseXContentTypeOptions();
+            
 
             //! Cors goes directly after the UseRouting (Name the policy (above) as a parameter)
             app.UseCors("CorsPolicy");
