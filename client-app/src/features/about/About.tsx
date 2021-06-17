@@ -7,7 +7,15 @@ import { toast } from "react-toastify";
 const About = (props: any) => {
   const handleTestAuthEndpoint = () => {
     agent.TestAuth.test().then((res) => {
-      toast(`RESPONSE MESSAGE: ${res}`);
+      toast.success(`Response: ${res}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
     });
   };
 
@@ -38,8 +46,8 @@ const About = (props: any) => {
         authentication, authorization in the context of Json Web Tokens (JWT's),
         as well as how to make an application more secure through the
         implementation of security headers. In addition to the Auth services,
-        the project also demonstrates an understanding on how to both build, and
-        deploy to production, a full-stack application.
+        the project also demonstrates an understanding on how to build, and then
+        deploy, a full-stack application to production.
       </p>
       <p style={{ fontWeight: 600 }}>Details:</p>
       <ul style={{ lineHeight: "1.5rem" }}>
