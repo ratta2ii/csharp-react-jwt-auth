@@ -29,6 +29,13 @@ namespace API
                 opt.Filters.Add(new AuthorizeFilter(policy)); 
             });
 
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
             // This simply imports the class cusstom classes to keep code clean (Instead of hard coding here). 
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
