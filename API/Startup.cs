@@ -91,7 +91,7 @@ namespace API
                 // so adding custom middleware below instead
                 app.Use(async (context, next) =>
                 {
-                    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+                    context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000", "includeSubDomains=true", "preload=true");
                     await next.Invoke();
                 });
             }
@@ -99,13 +99,11 @@ namespace API
             app.UseRouting();
 
 
-
             // Looks in "wwwroot" for any "index.html"
             // Scripts in the client must run a postbuild operation to move build files to wwwroot
             app.UseDefaultFiles();
             app.UseStaticFiles();
             
-
             //! Cors goes directly after the UseRouting (Name the policy (above) as a parameter)
             app.UseCors("CorsPolicy");
 
