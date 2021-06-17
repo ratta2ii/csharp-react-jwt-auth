@@ -15,7 +15,7 @@ const About = (props: any) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        });
+      });
     });
   };
 

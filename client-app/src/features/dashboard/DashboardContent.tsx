@@ -9,7 +9,15 @@ const DashboardContent = (props: any) => {
   const { userStore: { user } } = useStore();
   const handleTestAuthEndpoint = () => {
     agent.TestAuth.test().then((res) => {
-      toast(`RESPONSE MESSAGE: ${res}`);
+        toast.success(`Response: ${res}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
     });
   };
 
