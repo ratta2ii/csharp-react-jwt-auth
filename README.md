@@ -1,11 +1,12 @@
 ## Auth Services with JWT's
 #### GitHub Repo: [csharp-react-jwt-auth](https://github.com/ratta2ii/csharp-react-jwt-auth)
-#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/)
+#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/) (app sleeps after 30 mins inactivity (Heroku) -slow initial loading)
 
 ## Security Report "A" Rating
-#### [securityheaders.com](https://securityheaders.com)
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-security-rating.png)
+#### [securityheaders.com](https://securityheaders.com)
 
+#
 ###### Landing Page
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-home.png)
 
@@ -23,8 +24,9 @@ _The purpose of this application is to demonstrate a working knowledge of
 authentication, authorization in the context of Json Web Tokens (JWT's),
 as well as how to make an application more secure through the
 implementation of security headers. In addition to the Auth services,
-the project also demonstrates an understanding on how to build, and then
-deploy, a full-stack application to production._
+the project also demonstrates an understanding on how to build a
+full-stack application, as well as how to deploy the app to a production
+environment._
 
 ##  Details
 - C#/.NET5.0 back-end API, with a TypeScript/React client front-end
