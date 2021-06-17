@@ -1,18 +1,18 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using API.DTOs;
-using API.Services;
-using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using API.DTOs;
+using API.Services;
+using Domain;
 
 namespace API.Controllers
 {
     // "AllowAnonymous" allows a user to access account methods w/o being authenticated -yet.
-    // I.E. A user cannot be authenticted, while in the process of being authenticated. :-)
+    // A user cannot be authenticted, while in the process of being authenticated. :-)
     [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]

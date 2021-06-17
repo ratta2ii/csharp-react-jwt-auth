@@ -72,11 +72,6 @@ namespace API
                 ))
             );
 
-
-            // TODO: #2
-            app.UseXContentTypeOptions();
-
-
             if (env.IsDevelopment())
             {
                 // Using custom middleware above to handle exceptions rather than this
@@ -98,7 +93,6 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
 
             // Looks in "wwwroot" for any "index.html"
             // Scripts in the client must run a postbuild operation to move build files to wwwroot

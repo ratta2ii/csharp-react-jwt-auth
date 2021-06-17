@@ -15,12 +15,12 @@ namespace API.Extensions
                 c.SwaggerDoc ("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
+            //* This is for sqlite in development
             //   services.AddDbContext<DataContext>(opt =>
             //   {
             //     // opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             //     // Inside "appsettings.development.json" ConnectionStrings property
             //     // "DefaultConnection": "Data source=oauth.db" (for sqlite)
-            //     opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             //   });
 
             //! This is a common method that retrieves the db connection string from Heroku
