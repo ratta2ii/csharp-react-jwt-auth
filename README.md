@@ -34,13 +34,13 @@ deploy, a full-stack application to production._
 - The back-end API is serving the React build files from a wwwroot
           folder (triggered by a post-build event)
   
-## Installation (local machine)
+<!-- ## Installation (local machine)
     1. git clone https://github.com/ratta2ii/csharp-react-jwt-auth.git
     2. cd csharp-react-jwt-auth
     3. dotnet restore
     4. dotnet build
     5. cd API/
-    6. dotnet watch run
+    6. dotnet watch run -->
 
 ## Languages | Frameworks | Technologies
 1. C#/.NET5.0
