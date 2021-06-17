@@ -8,7 +8,7 @@ const About = (props: any) => {
   const handleTestAuthEndpoint = () => {
     agent.TestAuth.test().then((res) => {
       toast.success(`Response: ${res}`, {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -22,20 +22,20 @@ const About = (props: any) => {
   return (
     <Container
       style={{
-        fontSize: 14,
+        fontSize: 18,
         fontFamily: "monospace",
         width: "80%",
         marginTop: 130,
       }}
     >
-      <h1 style={{ fontWeight: 600, fontSize: 30 }}>
+      <h1 style={{ fontWeight: 600, fontSize: 35 }}>
         Auth Services with JWT's
       </h1>
       <h2
         style={{
           fontWeight: 600,
           fontSize: 18,
-          marginTop: -10,
+          marginTop: -3,
         }}
       >
         C#/.NET5.0 | TypeScript/React

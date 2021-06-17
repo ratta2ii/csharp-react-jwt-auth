@@ -6,31 +6,34 @@ import { toast } from "react-toastify";
 import { useStore } from "../../app/stores/store";
 
 const DashboardContent = (props: any) => {
-  const { userStore: { user } } = useStore();
+  const {
+    userStore: { user },
+  } = useStore();
+
   const handleTestAuthEndpoint = () => {
     agent.TestAuth.test().then((res) => {
-        toast.success(`Response: ${res}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
+      toast.success(`Response: ${res}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     });
   };
 
   return (
     <Container>
       <p style={{ fontWeight: 600, fontSize: 16 }}>Current User:</p>
-      <ul style={{maxWidth: "100%", overflowWrap: "break-word"}}>
-          <li>Username: {user?.userName}</li>
-          <li>Display Name: {user?.displayName}</li>
-          <li>Token: {user?.token}</li>
+      <ul style={{ maxWidth: "100%", overflowWrap: "break-word" }}>
+        <li>Username: {user?.userName}</li>
+        <li>Display Name: {user?.displayName}</li>
+        <li>Token: {user?.token}</li>
       </ul>
       <div style={{ marginTop: 50, marginBottom: 50 }}>
-        <Button onClick={handleTestAuthEndpoint} size="large" >
+        <Button onClick={handleTestAuthEndpoint} size="large">
           Test Authorization Endpoint
         </Button>
       </div>
