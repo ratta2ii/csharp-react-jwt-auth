@@ -1,6 +1,6 @@
 ## Auth Services with JWT's
 #### GitHub Repo: [csharp-react-jwt-auth](https://github.com/ratta2ii/csharp-react-jwt-auth)
-#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/) (app sleeps after 30 mins inactivity (Heroku) -slow initial loading)
+#### Website: [Live Demo Here](https://csharp-react-jwt-auth.herokuapp.com/)
 
 ## Security Report "A" Rating
 ![ Screenshot of Project ](./client-app/public/assets/screenshots/ss-security-rating.png)
@@ -35,7 +35,9 @@ environment._
 (PaaS)
 - The back-end API is serving the React build files from a wwwroot
           folder (triggered by a post-build event)
-  
+-  [uptimerobot.com](https://uptimerobot.com/) pings the app every 5 mins to prevent "sleeping" after 30 minutes of
+ inactivity, preventing slow initial load times (PaaS = Heroku)
+- https://uptimerobot.com/  
 <!-- ## Installation (local machine)
     1. git clone https://github.com/ratta2ii/csharp-react-jwt-auth.git
     2. cd csharp-react-jwt-auth
@@ -57,6 +59,7 @@ environment._
 10. Semantic-UI, Material-UI (icons)
 11. HTML & CSS
 12. react-toastify
+13. uptimerobot.com
 
 ## Licensing
 
