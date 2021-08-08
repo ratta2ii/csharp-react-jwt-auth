@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { Container, Header, Segment, Button } from "semantic-ui-react";
@@ -10,15 +10,22 @@ const HomePage = () => {
     userStore: { user },
   } = useStore();
 
+  const [loadTimer, setLoadTimer] = useState(true);
+
   useEffect(() => {}, [user]);
 
   let backgroundImage;
-  (!user)
+  !user
     ? (backgroundImage = "blue-folder-lock.jpeg")
     : (backgroundImage = "blue-folder-unlock.jpeg");
 
-  if (!backgroundImage) 
+  // Adding loader to handle possible slow image loading (inactivity causing app to sleep on PaaS)  
+  if (loadTimer) {
+    setTimeout(function () {
+      setLoadTimer(false);
+    }, 900);
     return <LoadingComponent content="Loading App..." />;
+  }
 
   return (
     <Segment
@@ -41,7 +48,12 @@ const HomePage = () => {
               Show me the Magic!
             </Button>
           ) : (
-            <Button as={Link} to={`/dashboard/user/${user?.userName}`} size="huge" inverted>
+            <Button
+              as={Link}
+              to={`/dashboard/user/${user?.userName}`}
+              size="huge"
+              inverted
+            >
               Go To Dashboard!
             </Button>
           )}
