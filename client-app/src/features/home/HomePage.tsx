@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { Container, Header, Segment, Button } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 const HomePage = () => {
   const {
@@ -12,9 +13,12 @@ const HomePage = () => {
   useEffect(() => {}, [user]);
 
   let backgroundImage;
-  !user
+  (!user)
     ? (backgroundImage = "blue-folder-lock.jpeg")
     : (backgroundImage = "blue-folder-unlock.jpeg");
+
+  if (!backgroundImage) 
+    return <LoadingComponent content="Loading App..." />;
 
   return (
     <Segment
