@@ -21,12 +21,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                
+
             services.AddControllers(opt =>
             {
                 // Authorization Policy Ensures all endpoints on API require auth (except: [AllowAnonymous])
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                opt.Filters.Add(new AuthorizeFilter(policy)); 
+                opt.Filters.Add(new AuthorizeFilter(policy));
             });
 
             // This simply imports the class cusstom classes to keep code clean (Instead of hard coding here). 
@@ -68,9 +68,21 @@ namespace API
                 .FrameAncestors(s => s.Self())
                 .ImageSources(s => s.Self())
                 .ScriptSources(s => s.Self().CustomSources(
-                    "sha256-pz50DyrkssNZYZUtYddeJSW8YUsYBWOZNz1x1kHRCRc="
+                    "sha256-pz50DyrkssNZYZUtYddeJSW8YUsYBWOZNz1x1kHRCRc=",
+                    "sha256-QdpWMTr0QKJCZNOvjgMCNMi06olZZd5ww2PTXFPsqWw="
                 ))
             );
+
+            // Set 'Content-Type' for CSS files
+            app.Use(async (context, next) =>
+            {
+                // Check if the request is for a CSS file
+                if (context.Request.Path.Value.EndsWith(".css"))
+                {
+                    context.Response.ContentType = "text/css";
+                }
+                await next();
+            });
 
             if (env.IsDevelopment())
             {
@@ -79,7 +91,7 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-            else 
+            else
             {
                 //! Below is not working w/ Heroku
                 // app.UseHsts();
@@ -99,7 +111,7 @@ namespace API
             // Scripts in the client must run a postbuild operation to move build files to wwwroot
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
             //! Cors goes directly after the UseRouting (Name the policy (above) as a parameter)
             app.UseCors("CorsPolicy");
 
